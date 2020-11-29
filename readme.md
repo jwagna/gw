@@ -1,0 +1,171 @@
+## geekwatch
+Streamlining geekhack interests into Discord newsletter
+
+## Introduction
+geekwatch looks to help keyboard enthusiasts and amateurs alike stay up to date with the many posts found within [geekhhack](https://geekhack.org/), the standard online forum for the clickity-clackity hobby.
+
+The initial use case was intended for members of the community to have notifications solely for thread publications sent to Discord for a more convenient user experience. However, as more and more vendors, promoters, affiliates, and streamers migrate their primary means of communication to Discord along with the rapidly growing userbase, followers may want to further centralize updates by opting in for notifications that include important individual replies within the threads themselves.
+
+geekwatch tracks and monitors geekhack's forums for new submissions within any forum category (a.k.a. boards) as well as new responses posted by the original poster within any accessible thread (a.k.a. topics). With the bot managing and storing preferences in a separate database, users will be able to have updates relayed to text channels or even DMs through Discord. These messages, in the form of embeds, will include the topic's title, author, author's score (post count), image (if available), timestamp, and more. With simple and easy-to-use commands, users may opt in and out at any time.
+
+In addition to being lightweight in permissions, geekwatch does not require a proprietary account from geekhack to track topics and boards (however having an account is highly recommended).
+
+## Functions
+
+------
+**1. "Watch" any board for newly started topics**
+- Each user can watch up to 10 boards
+------
+**2. "Follow" any topic for new posts by OP**
+- Each user can follow up to 10 topics
+------
+**3. Manage your board/topic list**
+- User can add new interests and remove any existing with simple commands
+------
+**4. Moderate text channels to limit command usage**
+- Admins can unrestrict text channels so any other user can share and add their own interests
+- Admins can restrict channels at any time
+------
+**5. Mass remove trackers in channel/DM**
+- Admins can remove all follows/watches within a channel with one command
+- Users can also opt out of all trackers via DMs
+------
+
+> Updates will be sent to wherever command was called (channel or DM)
+
+> Each user can track the same board or topic in no more than one channel and DMs simultaneously
+
+> A board or topic cannot be tracked twice within one server
+
+> If the bot is unable to reach the destination (ie. bot attempts to DM you but you no longer share a mutual server or bot attempts to ping the channel but channel has been deleted), all instances of the address will be removed from every list
+
+------
+## Commands
+*Upon initially inviting the bot, only server admins will have access to every command. Non-admins will be able to call commands only via DM until restrictions are lifted within a text channel.*
+
+-----
+`.gw follow [url or topic number]`
+
+Follow a thread to receive notifications for new posts made by the thread starter
+
+`.gw following`
+
+Returns your followed threads with indices
+
+`.gw unfollow [index number]`
+
+Unfollow a thread using an index provided by .gw following
+
+`.gw unfollow all`
+
+Unfollow all threads
+
+`.gw watch [url or board number]`
+
+Watch a board to receive notifications for newly posted threads
+
+`.gw watching`
+
+Returns your watched boards with indices
+
+`.gw unwatch [index number]`
+
+Unwatch a board using an index provided by .gw watching
+
+`.gw unwatch all`
+
+Unwatch all boards
+
+`.gw help`
+
+Returns the commands list
+
+-----
+
+**ADMIN ONLY**
+
+`.gw unrestrict`
+
+Lifts restrictions from a channel, allowing any user to call non-admin commands
+
+`.gw restrict`
+
+Restricts channel, disallowing non-admins to call any non-admin command (all channels are restricted by default)
+
+`.gw detach`
+
+Removes all instances of channel from every list, including from other users (this can also be called via DM)
+
+------
+
+## Example use cases
+
+------
+
+1. User wants to monitor the "Interest Checks" board within geekhack and would like post notifications in their direct messages.
+
+> User calls a command to geekwatch via DM: `.gw watch https://geekhack.org/index.php?board=132.0/`.
+
+- The user will now receive pings in their DMs whenever there is a new topic posted within "Interest Checks".
+
+------
+
+2. User no longer wants to monitor "Interest Checks".
+
+> User calls to geekwatch via DM to return current watchlist: `.gw watching`.
+
+> "Interest Checks" is listed with the index of 1.
+
+> User calls `.gw unwatch 1` to remove "Interest Checks" from watchlist.
+
+
+- User will no longer receive notifications from the board.
+
+------
+
+3. User (OP of a Groupbuy thread) wants to monitor their own topic/thread so that their new replies within the thread is redirected to a text channel in user's community Discord server.
+
+> User calls `.gw follow 105468` within a text channel.
+
+- Any user with read access to the channel will now get pings when OP posts a new reply.
+
+------
+
+4. User (admin) wants to unrestrict a channel so that their friends can post similar topics as they share similar interests.
+
+> User creates a seperate text channel and calls `.gw unrestrict`.
+
+> User agrees to the disclaimer by sending `open gate`.
+
+- Any other user with permissions can now call any command within the unrestricted text channel.
+
+------
+
+5. User (admin) has unrestricted a channel, however there is excessive activity in the channel as too many other users have called `.gw follow` and `.gw watch`.
+
+> User wants to re-restrict the channel and remove all trackers.
+
+> User calls `.gw restrict` and follows with `.gw detach`.
+
+> User agrees to the disclaimer by sending `detach`.
+
+- The channel is now restricted and all follows and watches directing to the channel has been removed from all lists.
+
+------
+
+## Notes
+- Results will likely not be immediate as updates from geekwatch rely solely on forum activity along with user preferences. For testing purposes, it is recommended to watch popular boards and follow active threads (if you are unfamiliar with the forum index, [132](https://geekhack.org/index.php?board=132.0), [70](https://geekhack.org/index.php?board=70.0), [31](https://geekhack.org/index.php?board=31.0), [33](https://geekhack.org/index.php?board=33.0) usually have multiple topics posted daily)
+- Updates for newly submitted topics within board 70 [(Group Buys and Preorders)](https://geekhack.org/index.php?board=70.0) may seem delayed if compared against the provided timestamp as they require manual review and approval by forum moderators
+
+## Todos
+```
+- hire a front end dev to make my readme pretty
+- hire a professional writer to better compose my readme
+- allow user to unfollow/unwatch with url or topic/board number in addition to list index
+- include where follows/watches were called with list (show which channel or DM)
+- notify user if any follow/watch has been removed by someone other than user
+- send follow/watchlist only via DM
+- add method to fail gracefully when user or channel is unreachable (ie. ping user before deletion reminding bot must be in a mutual server)
+- add a dynamic bot status
+- migrate some information to a website
+```
