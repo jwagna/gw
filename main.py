@@ -8,8 +8,10 @@ def read_token():
     lines = f.readlines()
     return lines[0].strip()
   
+intents = discord.Intents.default()
+intents.members = True
 
-client = commands.Bot(command_prefix = '.')
+client = commands.Bot(command_prefix = '.', intents=intents)
 
 for filename in os.listdir('./cogs'): 
   if filename.endswith('.py'):
@@ -18,6 +20,9 @@ for filename in os.listdir('./cogs'):
 
 @client.event
 async def on_message(message):
+  # if message.content.startswith('..') or message.content.startswith('.gt') is False or message.author.bot:
+  #   return
+
   if message.content.startswith('..') or message.content.startswith('.gw') is False or message.author.bot:
     return
 

@@ -1,0 +1,6 @@
+discord
+mongo
+bs4
+requests
+aiohttp
+dnspython
