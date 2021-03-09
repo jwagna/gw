@@ -186,9 +186,9 @@ class Listener(commands.Cog):
         if topic_id in [i['topic_id'] for i in ls]:
           listed = [i for i in ls if i['topic_id'] == topic_id][0]
           
-
           if post != listed['last']:
             listened(topic_id, post)
+
             if poster_id != op_id:
               continue
 
